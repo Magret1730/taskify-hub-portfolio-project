@@ -1,0 +1,80 @@
+{% include 'bootstrap/nav.html' %}
+{% extends 'bootstrap/index.html' %} <!--this imports the bootstrap templates-->
+{% block title %} Login {% endblock %}
+{% block content %} <!--This allows block content from this page to be rendered-->
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                {% if reset_successful %}
+                <div class="alert alert-success" role="alert">
+                    Password reset was successful. Please log in with your new password.
+                </div>
+                {% endif %}
+                <form action="/login" method="post">
+                    {{ form.hidden_tag() }}
+                    <div class="mb-3">
+                        {{ form.email.label(class="form-label") }}
+                        {{ form.email(class="form-control", placeholder="Email", autocomplete="email") }}
+                        {% for error in form.email.errors %}
+                            <div class="alert alert-danger">{{ error }}</div>
+                        {% endfor %}
+                    </div>
+                    <div class="mb-3">
+                        {{ form.password.label(class="form-label") }}
+                        {{ form.password(class="form-control", placeholder="Password", autocomplete="current-password") }}
+                        {% for error in form.password.errors %}
+                            <div class="alert alert-danger">{{ error }}</div>
+                        {% endfor %}
+                    </div>
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-secondary">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="nav-item text-center">
+            <a class="nav-link" href="{{url_for('register')}}">Don't have an account? Register.</a>
+        </div>
+        <div class="nav-item text-center">
+            <a class="nav-link" data-bs-toggle="modal" data-bs-target="#forgotPasswordModal" href="#">Forgot password?</a>
+        </div>
+
+        <!-- Forgot Password Modal -->
+        <div class="modal fade" id="forgotPasswordModal" tabindex="-1" aria-labelledby="forgotPasswordModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="forgotPasswordModalLabel">Forgot Password</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <!-- Password Reset Form {{ url_for('reset_password') }}-->
+                        <form action="/reset_password" method="post">
+                            {{ form.hidden_tag() }}
+                            <div class="mb-3">
+                                {{ form.email.label(class="form-label") }}
+                                {{ form.email(class="form-control", placeholder="Email", autocomplete="email") }}
+                                {% for error in form.email.errors %}
+                                    <div class="alert alert-danger">{{ error }}</div>
+                                {% endfor %}
+                            </div>
+                            <div class="mb-3">
+                                {{ form.password.label(class="form-label") }}
+                                {{ form.password(class="form-control", placeholder="Password", autocomplete="password") }}
+                                <!-- {% for error in form.password.errors %}
+                                    <div class="alert alert-danger">{{ error }}</div>
+                                {% endfor %} -->
+                            </div>
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-secondary">Reset Password</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
