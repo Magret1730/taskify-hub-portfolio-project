@@ -30,7 +30,7 @@ login_manager.login_view = "login"
 def load_user(reg_idd):
     return Reg.query.get(str(reg_idd))
 
-@app.route('/home')
+@app.route('/')
 def home():
     return render_template('dashboard/home.html')
 
@@ -119,7 +119,9 @@ def add():
         # Check if the due date is in the past
         if due_date < date.today():
             flash('Due date has already passed.', 'due_date')
-            return redirect(url_for('list'))
+            # past_due_date = date.today()  #.strftime('%Y-%m-%d')
+            # # print(past_due_date)
+            return redirect(url_for('list')) # past_due_date=past_due_date))
     else:
         due_date = None
 
@@ -127,7 +129,7 @@ def add():
     db.session.add(new_todo)
     db.session.commit()
 
-    return redirect(url_for('list'))
+    return redirect(url_for('list'))  #,past_due_date=past_due_date))
 
 @app.route('/edit/<int:id>', methods=['PUT', 'POST'])
 @login_required
