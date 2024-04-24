@@ -33,11 +33,13 @@
             </div>
         </div>
 
-        <div class="nav-item text-center">
-            <a class="nav-link" href="{{url_for('register')}}">Don't have an account? Register.</a>
+        <div class="nav-item text-center mb-0">
+            <p class="nav-link mb-0">Don't have an account? <a href="{{url_for('register')}}">Register.</a></p>
+            <!-- <a class="nav-link" href="{{url_for('register')}}">Don't have an account? Register.</a> -->
         </div>
-        <div class="nav-item text-center">
-            <a class="nav-link" data-bs-toggle="modal" data-bs-target="#forgotPasswordModal" href="#">Forgot password?</a>
+        <div class="nav-item text-center mb-0">
+            <p class="nav-link mb-0">Forgot <a  data-bs-toggle="modal" data-bs-target="#forgotPasswordModal" href="#">password</a>?</p>
+            <!-- <a class="nav-link" data-bs-toggle="modal" data-bs-target="#forgotPasswordModal" href="#">Forgot password?</a> -->
         </div>
 
         <!-- Forgot Password Modal -->
