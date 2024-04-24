@@ -2,19 +2,14 @@
 {% extends 'bootstrap/index.html' %} <!-- This inherits the bootstrap templates -->
 {% block title %} List {% endblock %}
 {% block content %} <!-- This allows block content from this page to be rendered -->
-<div class="container-fluid p-0">
-    <div class="row">
-        <div class="col-md-12">
-            <div class="position-relative">
-                <img src="/static/images/land.jpeg" alt="Landing page images" class="w-100">
-                <div class="position-absolute top-0 end-0 p-3 text-secondary mt-5 d-flex flex-column justify-content-center align-items-center"
-                    style="z-index: 1; background-color: rgba(255, 255, 255, 0.8); border-radius: 30%; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); margin-right: 30px; width: 500px; height: 250px;">
-                    <h1>Welcome to Taskify Hub!</h1>
-                    <p class="lead mb-0">Do you want to stay organized and supercharge your</p>
-                    <p class="lead">productivity?</p>
-                    <p><a href="/register" class="btn btn-secondary ms-2 bg-secondary">Register now!</a></p>
-                </div>
-            </div>
+<div class="container">
+    <div class="card img-fluid">
+        <img src="/static/images/land.jpeg" class="card-img" alt="Landing page image">
+        <div class="card-img-overlay">
+            <h5 class="card-title text-center h1 mt-2 mb-1 text-secondary">Welcome to Taskify Hub!</h5>
+            <p class="card-text text-center h5 mb-3 p-0 text-secondary">A Todo App that helps you stay organized and productive. Do you want to stay organized and supercharge your productivity?</p>
+            <!-- <p class="card-text text-center h5 p-0 mb-1 text-secondary">Do you want to stay organized and supercharge your productivity?</p> -->
+            <p class="card-text text-center"><a href="/register" class="btn btn-secondary ms-2 bg-secondary">Register now!</a></p>
         </div>
     </div>
 </div>
