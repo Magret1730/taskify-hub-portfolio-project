@@ -1,10 +1,11 @@
 """Taskify Hub application routes"""
+from database import Reg, Todo, db
 from datetime import datetime, date
 from flask import flash, Flask, render_template, redirect, url_for, request
 from flask_bcrypt import Bcrypt
 from flask_bootstrap import Bootstrap
 from flask_login import UserMixin, login_user, LoginManager, login_required, logout_user, current_user
-from database import Reg, Todo, db
+from flask_mail import Mail, Message
 from model import RegisterForm, LoginForm
 
 

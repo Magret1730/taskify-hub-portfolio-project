@@ -1,6 +1,7 @@
 """Database creation"""
 from flask_login import UserMixin, login_user, LoginManager, login_required, logout_user, current_user
 from flask_sqlalchemy import SQLAlchemy
+# from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 from uuid import uuid4
 
 db = SQLAlchemy()
@@ -12,11 +13,25 @@ class Reg(db.Model, UserMixin):
     first_name = db.Column(db.String(50), nullable=False)
     email = db.Column(db.String(50), nullable=False, unique=True)
     password = db.Column(db.String(80), nullable=False)
+    reset_token = db.Column(db.String(100))
 
     # overriding the default implementation provided by UserMixin and ensuring
     # that Flask-Login can retrieve the user's unique identifier correctly.
     def get_id(self):
         return self.idd
+    
+    # def get_reset_token(self, expires_sec=1800):
+    #     s = Serializer(app.config['SECRET_KEY'], expires_sec)
+    #     return s.dumps({'reg_id': 'self.idd'}).decode('utf-8')
+    
+    # @staticmethod
+    # def verify_reset_token(token):
+    #     s = Serializer(app.config['SECRET_KEY'])
+    #     try:
+    #         reg_id = s.loads(token)['reg_id']
+    #     except:
+    #         return None
+    #     return Reg.query.get(reg_id)
 
 # Create List Tasks Models for sqlite database
 class Todo(db.Model):
