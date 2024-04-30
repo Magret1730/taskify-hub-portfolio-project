@@ -1,9 +1,9 @@
 """Models"""
-from collections.abc import Sequence
+# from collections.abc import Sequence
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField
 from wtforms.validators import InputRequired, Length, ValidationError, Email, DataRequired
-from database import Reg, Todo, db
+from database import Reg  #, Todo, db
 import re
 
 class RegisterForm(FlaskForm):
@@ -43,6 +43,19 @@ class LoginForm(FlaskForm):
         min=4, max=20)], render_kw={"placeholder": "Password"})
     submit = SubmitField("Login")
 
-# class ResetPasswordRequestForm(FlaskForm):
-#     email = StringField("Email", validators=[DataRequired(), Email()])
-#     submit = SubmitField("Request Password Reset")
+class ResetRequestForm(FlaskForm):
+    # email = StringField(label="Email", validators=[DataRequired(), Email()])
+    email = StringField(label="Email", validators=[InputRequired(), Length(
+        min=4, max=50)], render_kw={"placeholder": "Email"})
+    submit = SubmitField(label="Reset Password") #, validators=[DataRequired()])
+
+class ResetPasswordForm(FlaskForm):
+    password = PasswordField(label="Password", validators=[InputRequired(), Length(
+        min=4, max=20)], render_kw={"placeholder": "New Password"})
+    confirm_password = PasswordField(label="Confirm Password", validators=[InputRequired(), Length(
+        min=4, max=20)], render_kw={"placeholder": "Confirm Password"})
+    submit = SubmitField(label="Change Password")
+
+    def validate_confirm_password(self, confirm_password):
+        if self.password.data != confirm_password.data:
+            raise ValidationError("Wrong Confirm Password")

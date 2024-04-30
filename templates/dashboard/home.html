@@ -1,35 +1,54 @@
-{% include 'bootstrap/nav.html' %}
-{% extends 'bootstrap/index.html' %} <!-- This inherits the bootstrap templates -->
-{% block title %} List {% endblock %}
-{% block content %} <!-- This allows block content from this page to be rendered -->
-<!-- <div class="container-fluid mr-0">
-    <div class="card img-fluid" style="width:100%">
-        <img class="card-img-top" src="/static/images/land.jpeg" alt="Landing page image">
-        <div class="card-img-overlay">
-            <h5 class="card-title text-center h1 mt-2 mb-1 text-secondary">Welcome to Taskify Hub!</h5>
-            <p class="card-text text-center h5 mb-3 p-0 text-secondary">A Todo App that helps you stay organized and productive. Do you want to stay organized and supercharge your productivity?</p>
-            <p class="card-text text-center"><a href="/register" class="btn btn-secondary ms-2 bg-secondary">Register now!</a></p>
-        </div>
-    </div>
-</div> -->
-<div class="container">
-    <div class="card">
-        <img class="img-fluid card-img-top" src="/static/images/land.jpeg" alt="Landing page image">
-        <!-- <div class="card-img-overlay d-flex flex-column justify-content-center align-items-center">
+<!-- 
+<div class="container-fluid bg-body-secondary">
+    <div class="row">
+        <div class="col-lg-12">
             <h1 class="card-title text-center display-4 mt-2 mb-3 text-secondary">Welcome to Taskify Hub!</h1>
             <p class="card-text text-center h5 mb-3 text-secondary">A Todo App that helps you stay organized and
                 productive. Do you want to stay organized and supercharge your productivity?</p>
             <p class="card-text text-center"><a href="/register" class="btn btn-secondary btn-lg">Register now!</a></p>
-        </div> -->
-        <div class="card-img-overlay d-flex flex-column">
-            <div class="mt-0 text-center">
-                <h1 class="card-title text-secondary display-4">Welcome to Taskify Hub!</h1>
-                <p class="card-text text-secondary h5 mb-4">A Todo App that helps you stay organized and productive. Do you want
-                    to stay organized and supercharge your productivity?</p>
-                <p class="card-text text-center"><a href="/register" class="btn btn-secondary btn-lg">Register now!</a></p>
-            </div>
         </div>
-
+    </div>
+    <div class="row">
+        <div class="col-lg-4 bg-secondary text-light">
+            <h1 class="card-title text-center display-4 mt-2 mb-3">Daily guide to stay focused</h1>
+            <p class="card-text text-center h5 mb-3">Cummulative days of staying organized will help to achieve goals.</p>
+        </div>
+        <div class="col-lg-8">
+            <img class="img-fluid" src="/static/images/land.jpeg" alt="Landing page image">
+        </div>
     </div>
 </div>
+<footer>
+    copyright
+</footer> -->
+{% include 'bootstrap/nav.html' %}
+{% extends 'bootstrap/index.html' %}
+{% block title %} Taskify Hub {% endblock %}
+{% block content %}
+<div class="container-fluid bg-light">
+    <div class="row container text-bg-light p-0 mt-0 mb-2">
+        <div class="col-lg-12 text-center">
+            <h1 class="display-5 mt-2 mb-0 text-secondary">Welcome to Taskify Hub!</h1>
+            <p class="lead mb-1 text-dark">Stay organized and supercharge your productivity.</p>
+            <a href="/register" class="btn btn-primary btn-lg">Get Started</a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-6">
+            <img class="img-fluid" src="/static/images/land.jpeg" alt="Landing page image">
+        </div>
+        <div class="col-lg-6">
+            <div class="card bg-secondary text-light mt-5">
+                <div class="card-body">
+                    <h2 class="card-title">Daily Guide to Stay Focused</h2>
+                    <p class="card-text">Track your progress and achieve your goals with our daily task management
+                        system.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<footer class="text-center py-4">
+    <p class="text-muted">© 2024 Taskify Hub. All rights reserved.</p>
+</footer>
 {% endblock %}
