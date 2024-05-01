@@ -1,4 +1,7 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-secondary">
+<head>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<nav class="navbar navbar-expand-lg navbar-dark custom-bg">
     <div class="container">
         <a class="navbar-brand" href="{{url_for('home')}}">Taskify Hub</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"

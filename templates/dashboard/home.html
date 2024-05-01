@@ -2,12 +2,15 @@
 {% extends 'bootstrap/index.html' %}
 {% block title %} Taskify Hub {% endblock %}
 {% block content %}
+<head>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+</head>
 <div class="container-fluid bg-light">
     <div class="row container-fluid text-light p-0 mt-0 mb-2 border-top border-white">
         <div class="col-lg-12 text-center">
             <h1 class="display-5 mt-2 mb-0 text-secondary">Welcome to Taskify Hub!</h1>
             <p class="lead mb-1 text-secondary">Stay organized and supercharge your productivity.</p>
-            <a href="/register" class="btn btn-primary btn-lg">Get Started</a>
+            <a href="/register" class="btn btn-primary btn-lg custom-bg">Get Started</a>
         </div>
     </div>
     <div class="row bg-light">
@@ -17,6 +20,6 @@
     </div>
 </div>
 <footer class="bg-light text-center py-4">
-    <p class="text-secondary">© 2024 Taskify Hub. All rights reserved.</p>
+    <p class="custom-text">© 2024 Taskify Hub. All rights reserved.</p>
 </footer>
 {% endblock %}
