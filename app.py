@@ -45,7 +45,8 @@ def register():
                        email=form.email.data, password=hashed_password)
         db.session.add(new_user)
         db.session.commit()
-        return redirect(url_for('list'))
+        flash("Registration successful. Please login.", "success")
+        return redirect(url_for('login'))
     return render_template('dashboard/reg.html', form=form)
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -89,7 +90,7 @@ def reset_password():
             user = Reg.query.filter_by(email=form.email.data).first()
             if user:
                 send_mail(user)
-                flash('A password reset link has been sent to your email', 'success')
+                flash('A password reset link has been sent to your email.', 'success')
                 reset_successful = True
                 # flash('Password reset successful. Please log in with your new password.', 'success')
                 return redirect(url_for('login', reset_successful=reset_successful))
@@ -109,7 +110,7 @@ def reset_token(token):
         hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
         user.password = hashed_password
         db.session.commit()
-        flash('Password changed. Please login', 'success')
+        flash('Password changed. Please login with the new password.', 'success')
         return redirect(url_for('login'))
     return render_template('dashboard/change_password.html', form=form, token=token)
 
@@ -137,7 +138,7 @@ def add():
 
         # Check if the due date is in the past
         if due_date < date.today():
-            flash('Due date has already passed.', 'due_date')
+            flash('Due date has passed.', 'due_date')
             # past_due_date = date.today()  #.strftime('%Y-%m-%d')
             # # print(past_due_date)
             return redirect(url_for('list')) # past_due_date=past_due_date))
@@ -200,7 +201,7 @@ def update(id):
     return redirect(url_for('list'))
 
 @app.route('/list', methods=['GET', 'POST'])
-# @login_required
+@login_required
 def list():
     if current_user.is_authenticated:
         todo_list = Todo.query.filter_by(reg_id=current_user.idd).all()

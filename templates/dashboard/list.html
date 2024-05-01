@@ -27,7 +27,7 @@
                             {% if messages %}
                             {% for message, category in messages %}
                             {% if message == 'title' %}
-                            <div class="container mt-1">
+                            <div class="container-fluid mt-1">
                                 <div class="row justify-content-start">
                                     <div class="col-sm-6">
                                         <p class="alert alert-danger">{{ category }}</p>
@@ -52,7 +52,7 @@
                                 {% if message == 'due_date' %}
                                 <div class="container mt-1">
                                     <div class="row justify-content-start">
-                                        <div class="col-sm-6">
+                                        <div class="col-sm-12">
                                             <p class="alert alert-danger">{{ category }}</p>
                                         </div>
                                     </div>
