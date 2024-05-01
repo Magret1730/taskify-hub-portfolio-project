@@ -1,0 +1,18 @@
+.custom-bg {
+    background-color: rgb(140, 110, 74);
+    border-radius: 5px;
+    border: none;
+    outline: none;
+}
+
+.custom-bg:hover {
+    background-color: rgb(120, 90, 54);
+}
+
+.custom-text {
+    color: rgb(140, 110, 74);
+}
+
+.custom-text:hover {
+    color: rgb(110, 90, 54);
+}
