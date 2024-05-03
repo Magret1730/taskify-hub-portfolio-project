@@ -9,6 +9,7 @@ from flask_login import UserMixin, login_user, LoginManager, login_required, log
 from flask_mail import Message
 from model import RegisterForm, LoginForm, ResetRequestForm, ResetPasswordForm
 from urllib.parse import quote
+import re
 
 # app = Flask(__name__)
 # app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///sqlite.db'
@@ -56,13 +57,17 @@ def login():
     if form.validate_on_submit():
         user = Reg.query.filter_by(email=form.email.data).first()
         if user:
+            # if not re.match(r"[^@]+@[^@]+\.[^@]+", form.email.data):
+            #     form.email.errors.append("Invalid email address.")
             if bcrypt.check_password_hash(user.password, form.password.data):
                 login_user(user)
                 return redirect(url_for('list'))
             else:
-                form.password.errors.append('Invalid password')
+                form.password.errors.append('Email or Password not found.')
+                # form.errors.append('Email or Password not found.')
         else:
-            form.email.errors.append('Email not found')
+            form.email.errors.append('Email or Password not found.')
+            # form.errors.append('Email or Password not found.')
     return render_template('dashboard/login.html', form=form, reset_successful=reset_successful)
 
 def send_mail(user):
@@ -204,11 +209,26 @@ def update(id):
 @login_required
 def list():
     if current_user.is_authenticated:
-        todo_list = Todo.query.filter_by(reg_id=current_user.idd).all()
+        todo_list = Todo.query.filter_by(reg_id=current_user.idd).order_by(Todo.created_at.desc()).all()
         total_todo = Todo.query.filter_by(reg_id=current_user.idd).count()
         completed_todo = Todo.query.filter_by(reg_id=current_user.idd).filter_by(complete=True).count()
         uncompleted_todo = Todo.query.filter_by(reg_id=current_user.idd).filter_by(complete=False).count()
-        #  OR uncompleted_todo = total_todo - completed_todo
+
+        page = request.args.get('page', 1, type=int)
+        per_page = 5
+        start = (page - 1) * per_page
+        end = start + per_page
+        total_pages = (total_todo + per_page - 1) // per_page
+
+        task_on_page = todo_list[start:end]
+
+        # # Query tasks for the current user
+        # todo_query = Todo.query.filter_by(reg_id=current_user.idd)
+        # print('***todo_query***', todo_query)
+        # # Apply pagination
+        # todo_pagination = todo_query.paginate(page=page, per_page=per_page, error_out=False)
+        # print('***todo_pagination***', todo_pagination)
+
         return render_template('dashboard/list.html', **locals())
     else:
         # Handle the case when the user is not authenticated
@@ -219,6 +239,10 @@ def list():
 @app.route('/about')
 def about():
     return render_template('dashboard/about.html')
+
+@app.route('/contact')
+def contact():
+    return render_template('dashboard/contact.html')
 
 
 if __name__ == "__main__":
