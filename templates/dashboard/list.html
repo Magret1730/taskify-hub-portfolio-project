@@ -1,6 +1,9 @@
 {% extends 'bootstrap/index.html' %} <!--this inherits the bootstrap templates-->
 {% block title %} List {% endblock %}
 {% block content %} <!--This allows block content from this page to be rendered-->
+    <head>
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+    </head>
     <div class="container">
         {% if not current_user.is_authenticated and request.endpoint == 'list' %}
         {% with messages = get_flashed_messages() %}
@@ -13,11 +16,20 @@
         {% endif %}
         {% endwith %}
         {% endif %}
-        <h2 class="mb-3 mt-3 text-secondary">Hello, {{ current_user.first_name }}</h2>
+        <div class="d-flex">
+            <div class="flex-fill">
+                <h2 class="mb-3 mt-3 custom-textt">Hello, {{ current_user.first_name }}</h2>
+            </div>
+            <div class="flex-shrink-1 align-content-end">
+                <div class="mb-3 mt-3">
+                    <a href="{{url_for('logout')}}" class="btn btn-secondary custom-bg">Logout</a>
+                </div>
+            </div>
+        </div>
         <div class="row">
             <div class="col-md-6">
-                <div class="card shadow">
-                    <div class="card-header">New Task</div>
+                <div class="card shadow bg custom-textt">
+                    <div class="card-header"><b>NEW TASK</b></div>
                     <div class="card-body">
                         <form action="/add" class="mb-3" method="post">
                             <label for="">Title: </label>
@@ -63,15 +75,15 @@
                                 {% endwith %}
                             </div>
                             <div class="col-md-12 text-center">
-                                <input class="btn mt-3 btn-lg btn-secondary" type="submit" value="Add">
+                                <input class="btn mt-3 btn-lg btn-secondary custom-bg" type="submit" value="Add Task">
                             </div>
                         </form>
                     </div>
                 </div>
             </div>
             <div class="col-md-6">
-                <div class="card shadow">
-                    <div class="card-header">Statistics</div>
+                <div class="card shadow bg custom-textt">
+                    <div class="card-header "><b>STATISTICS</b></div>
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-4">
@@ -105,16 +117,16 @@
         </div>
 
         {% if total_todo == 0 %}
-        <div class="container-fluid text-secondary text-center mt-3">
+        <div class="container-fluid custom-textt text-center mt-3">
             <h3>Your task list is currently empty. Why not add a task?</h3>
         </div>
         {% endif %}
 
+        <!-- Lists -->
         <div class="border-start border-4 shadow mt-3">
-            <!-- <div class="card-header">Lists</div> -->
-            {% for todo in todo_list %}
+            {% for todo in task_on_page %}
             <div class="card-body shadow">
-                <h5 class="mb-0">{{ todo.order }}. {{ todo.title }}</h5>
+                <h5 class="mb-0">{{ todo.title }}</h5>
                 <p class="container-fluid">{{ todo.description }}</p>
                 <p class="container-fluid mb-0"><b>Due Date:</b> {{ todo.due_date.strftime('%Y-%m-%d') if todo.due_date else 'Not specified' }}</p>
                 <div class="container-fluid">
@@ -123,10 +135,9 @@
                     {% else %}
                     <span class="badge bg-secondary">Uncompleted</span>
                     {% endif %}
-                    <a class="btn btn-sm btn-info" href="/update/{{ todo.id }}">Update</a>
-                    <!-- <a class="btn btn-sm btn-secondary" href="">Edit</a> -->
+                    <a class="btn btn-sm btn-info" href="/update/{{ todo.id }}">Mark Completed</a>
 
-                    <button type="button" class="btn btn-sm btn-secondary" data-bs-toggle="modal" data-bs-target="#editModal{{ todo.id }}">
+                    <button type="button" class="btn btn-sm btn-secondary custom-bg" data-bs-toggle="modal" data-bs-target="#editModal{{ todo.id }}">
                         Edit
                     </button>
                     
@@ -134,16 +145,14 @@
                     <div class="modal fade" id="editModal{{ todo.id }}" tabindex="-1" aria-labelledby="editModal{{ todo.id }}Label"
                         aria-hidden="true">
                         <div class="modal-dialog">
-                            <div class="modal-content">
+                            <div class="modal-content bg custom-textt">
                                 <div class="modal-header">
-                                    <h5 class="modal-title" id="editModal{{ todo.id }}Label">Edit Todo</h5>
+                                    <h5 class="modal-title" id="editModal{{ todo.id }}Label"><b>EDIT TASK</b></h5>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
-                                    <!-- Add form for editing here -->
                                     <form id="editForm{{ todo.id }}" method="post" action="/edit/{{ todo.id }}">
-                                        <!-- Add input fields for title and description -->
-                                        <input type="hidden" name="_method" value="put"> <!-- Hidden field to specify the method as PUT -->
+                                        <input type="hidden" name="_method" value="put">
                                         <div class="mb-3">
                                             <label for="titleInput{{ todo.id }}" class="form-label">New Title</label>
                                             <input type="text" class="form-control" id="titleInput{{ todo.id }}" name="title" placeholder="New Title"
@@ -159,8 +168,7 @@
                                             <input type="date" class="form-control" id="dueDateInput{{ todo.id }}" name="due_date"
                                                 value="{{ todo.due_date.strftime('%Y-%m-%d') if todo.due_date else '' }}">
                                         </div>
-                                        <!-- Submit button to submit the form -->
-                                        <button type="submit" class="btn btn-secondary">Save</button>
+                                        <button type="submit" class="btn btn-secondary custom-bg">Save</button>
                                     </form>
                                 </div>
                             </div>
@@ -170,10 +178,29 @@
                 </div>
             </div>
             {% endfor %}
-        </div>
 
-        <div class="mt-3 text-center"> <!-- Center-align content -->
-            <a href="{{url_for('logout')}}"><button type="submit" class="btn btn-secondary">Logout</button></a>
+            <!-- Pagination controls -->
+            <ul class="pagination pig">
+                <li class="page-item">
+                    {% if page > 1 %}
+                        <a class="page-link pig-li" href="{{ url_for('list', page=page-1) }}">Previous</a>
+                    {% endif %}
+                </li>
+                {% for num in range(1, total_pages + 1) %}
+                <li class="page-item">
+                    {% if num != page %}
+                    <a class="page-link pig-li" href="{{ url_for('list', page=num) }}">{{ num }}</a>
+                    {% else %}
+                    <strong class="page-link pig-li">{{ num }}</strong>
+                    {% endif %}
+                </li>
+                {% endfor %}
+                <li class="page-item">
+                    {% if page < total_pages %}
+                        <a class="page-link pig-li" href="{{ url_for('list', page=page+1) }}">Next</a>
+                    {% endif %}
+                </li>
+            </ul>
         </div>
     </div>
 {% endblock %}

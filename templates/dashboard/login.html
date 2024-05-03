@@ -23,29 +23,32 @@
                 {% endfor %}
                 {% endif %}
                 {% endwith %}
-                <!-- {% if reset_successful %}
-                <div class="alert alert-success" role="alert">
-                    A password reset link has been sent to your email.
-                </div>
-                {% endif %} -->
+                
+                {% for error in form.email.errors %}
+                    <div class="alert alert-danger">{{ error }}</div>
+                {% endfor %}
+                {% for error in form.password.errors %}
+                    <div class="alert alert-danger">{{ error }}</div>
+                {% endfor %}
+
                 <form action="/login" method="post">
                     {{ form.hidden_tag() }}
                     <div class="mb-3">
                         {{ form.email.label(class="form-label") }}
                         {{ form.email(class="form-control", placeholder="Email", autocomplete="email") }}
-                        {% for error in form.email.errors %}
+                        <!-- {% for error in form.email.errors %}
                             <div class="alert alert-danger">{{ error }}</div>
-                        {% endfor %}
+                        {% endfor %} -->
                     </div>
                     <div class="mb-3">
                         {{ form.password.label(class="form-label") }}
                         {{ form.password(class="form-control", placeholder="Password", autocomplete="current-password") }}
-                        {% for error in form.password.errors %}
+                        <!-- {% for error in form.password.errors %}
                             <div class="alert alert-danger">{{ error }}</div>
-                        {% endfor %}
+                        {% endfor %} -->
                     </div>
                     <div class="text-center">
-                        <button type="submit" class="btn btn-secondary custom-bg">Submit</button>
+                        <button type="submit" class="btn btn-secondary custom-bg">Login</button>
                     </div>
                 </form>
             </div>

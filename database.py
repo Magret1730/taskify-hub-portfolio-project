@@ -40,11 +40,11 @@ class Reg(db.Model, UserMixin):
 class Todo(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     reg_id = db.Column(db.String, db.ForeignKey('reg.idd'), nullable=False)
-    order = db.Column(db.Integer, nullable=False)  # New column for task order
     title = db.Column(db.String(150), nullable=False)
     description = db.Column(db.String(500))
     complete = db.Column(db.Boolean, default=False)
     due_date = db.Column(db.Date)
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
 
     def __init__(self, reg_id, title, description, complete, due_date=None):
         self.reg_id = reg_id
@@ -52,5 +52,3 @@ class Todo(db.Model):
         self.description = description
         self.complete = complete
         self.due_date = due_date
-        # Automatically set the order based on the current number of tasks for the user
-        self.order = Todo.query.filter_by(reg_id=reg_id).count() + 1
