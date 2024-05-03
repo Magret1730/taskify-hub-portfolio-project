@@ -189,11 +189,11 @@ def delete(id):
         db.session.delete(todo)
         db.session.commit()
 
-        # Update the IDs of the remaining todos
-        remaining_todos = Todo.query.order_by(Todo.id).all()       
-        for index, todo in enumerate(remaining_todos, start=1):
-            todo.id = index       
-        db.session.commit()
+        # # Update the IDs of the remaining todos
+        # remaining_todos = Todo.query.order_by(Todo.order.desc()).all()       
+        # for index, todo in enumerate(remaining_todos, start=1):
+        #     todo.order = index       
+        # db.session.commit()
     return redirect(url_for('list'))
 
 @app.route('/update/<int:id>')
@@ -219,15 +219,7 @@ def list():
         start = (page - 1) * per_page
         end = start + per_page
         total_pages = (total_todo + per_page - 1) // per_page
-
         task_on_page = todo_list[start:end]
-
-        # # Query tasks for the current user
-        # todo_query = Todo.query.filter_by(reg_id=current_user.idd)
-        # print('***todo_query***', todo_query)
-        # # Apply pagination
-        # todo_pagination = todo_query.paginate(page=page, per_page=per_page, error_out=False)
-        # print('***todo_pagination***', todo_pagination)
 
         return render_template('dashboard/list.html', **locals())
     else:

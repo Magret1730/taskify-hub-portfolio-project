@@ -37,3 +37,8 @@ body {
 .pig-li {
     color: rgb(140, 110, 74) !important;
 }
+
+.modal-text {
+    color: rgb(110, 90, 54) !important;
+    justify-content: center !important;
+}
