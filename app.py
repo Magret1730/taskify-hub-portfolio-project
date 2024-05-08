@@ -2,10 +2,10 @@
 from app_factory import app, db, mail
 from database import Reg, Todo
 from datetime import datetime, date
-from flask import flash, Flask, jsonify, render_template, redirect, url_for, request
+from flask import flash, render_template, redirect, url_for, request
 from flask_bcrypt import Bcrypt
 from flask_bootstrap import Bootstrap
-from flask_login import UserMixin, login_user, LoginManager, login_required, logout_user, current_user
+from flask_login import login_user, LoginManager, login_required, logout_user, current_user
 from flask_mail import Message
 from model import RegisterForm, LoginForm, ResetRequestForm, ResetPasswordForm
 from urllib.parse import quote
@@ -67,16 +67,19 @@ def send_mail(user):
     token = user.get_token()
     reset_url = url_for('reset_token', token=quote(token), _external=True)
     sender_email = 'noreply@taskifyhub.com'
-    # print(f"DEBUG: Sender email set to: {sender_email}")
-    msg = Message('Password Reset Request', recipients=[user.email], sender=sender_email)
-    # print(f"DEBUG: Recipient email set to: {user.email}")
-    msg.body = f''' To reset your password, please follow the link below. The link expires in 5 minutes.
+    msg = Message('Taskify Hub Password Reset', recipients=[user.email], sender=sender_email)
 
-    {reset_url}
+    # HTML message with button
+    html_body = render_template('dashboard/email.html', reset_url=reset_url)
+    
+    msg.html = html_body
+    # msg.body = f''' To reset your password, please follow the link below. The link expires in 5 minutes.
 
-    If you did not send a password request, please ignore this message.
+    # {reset_url}
 
-    '''
+    # If you did not send a password request, please ignore this message.
+
+    # '''
     mail.send(msg)
 
 @app.route('/reset_request', methods=['GET', 'POST'])
@@ -123,7 +126,7 @@ def add():
         title = request.form.get('title1')
     else:
         title = None
-        flash('Title cannot be empty.', 'title')  # Flash an error message
+        flash('Title cannot be empty.', 'title')
         return redirect(url_for('list'))
     # title = request.form.get('title1')
     description = request.form.get('description1')

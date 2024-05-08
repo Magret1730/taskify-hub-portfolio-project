@@ -42,3 +42,18 @@ body {
     color: rgb(110, 90, 54) !important;
     justify-content: center !important;
 }
+
+.custom-alert {
+    background-color: rgb(140, 110, 74) !important;
+    color: rgb(245, 233, 221) !important;
+    border: none !important;
+}
+
+/* .custom-email {
+    display: inline-block !important;
+    background-color: rgb(140, 110, 74) !important;
+    color: rgb(245, 233, 221) !important;
+    padding: 10px 20px !important;
+    text-decoration: none !important;
+    border: 1px;
+} */
