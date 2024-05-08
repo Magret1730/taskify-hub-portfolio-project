@@ -1,0 +1,15 @@
+{% extends 'bootstrap/index.html' %} <!--this imports the bootstrap templates-->
+{% block title %} Password Reset Email {% endblock %}
+{% block content %} <!--This allows block content from this page to be rendered-->
+<head>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <p>To reset your password, please click the button below. The link expires in 5 minutes.</p>
+        <a href="{{ reset_url }}" 
+            style="display: inline-block; background-color: rgb(194, 141, 89); color: rgb(245, 233, 221); padding: 10px 20px; text-decoration: none; border-radius: 10px; justify-content: center;">
+            RESET PASSWORD
+        </a>
+    <p>If you did not send a password request, please ignore this message.</p>
+</body>
+{% endblock %}
