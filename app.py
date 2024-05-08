@@ -9,16 +9,9 @@ from flask_login import UserMixin, login_user, LoginManager, login_required, log
 from flask_mail import Message
 from model import RegisterForm, LoginForm, ResetRequestForm, ResetPasswordForm
 from urllib.parse import quote
-import re
 
-# app = Flask(__name__)
-# app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///sqlite.db'
-# app.config['SECRET_KEY'] = 'dfe7b0946804edf295050cbb8ce8d3aec72063aede88df37'
 Bootstrap(app)
 bcrypt = Bcrypt(app)
-
-# Initialize the database
-# db.init_app(app)
 
 # Create tables within application context
 with app.app_context():
@@ -77,7 +70,7 @@ def send_mail(user):
     # print(f"DEBUG: Sender email set to: {sender_email}")
     msg = Message('Password Reset Request', recipients=[user.email], sender=sender_email)
     # print(f"DEBUG: Recipient email set to: {user.email}")
-    msg.body = f''' To reset your password, please follow the link below.
+    msg.body = f''' To reset your password, please follow the link below. The link expires in 5 minutes.
 
     {reset_url}
 
@@ -97,11 +90,9 @@ def reset_password():
                 send_mail(user)
                 flash('A password reset link has been sent to your email.', 'success')
                 reset_successful = True
-                # flash('Password reset successful. Please log in with your new password.', 'success')
                 return redirect(url_for('login', reset_successful=reset_successful))
-        # else:
-        #     print("Form errors:", form.errors)
-    return render_template('dashboard/reset_request.html', title='Reset Password', form=form, reset_successful=reset_successful)
+    return render_template('dashboard/reset_request.html', title='Reset Password',
+                           form=form, reset_successful=reset_successful)
 
 @app.route('/reset_password/<token>', methods=['GET', 'POST'])
 def reset_token(token):
@@ -140,21 +131,17 @@ def add():
     # Convert the string date to a Python date object
     if due_date_string:
         due_date = datetime.strptime(due_date_string, '%Y-%m-%d').date()
-
         # Check if the due date is in the past
         if due_date < date.today():
             flash('Due date has passed.', 'due_date')
-            # past_due_date = date.today()  #.strftime('%Y-%m-%d')
-            # # print(past_due_date)
-            return redirect(url_for('list')) # past_due_date=past_due_date))
+            return redirect(url_for('list'))
     else:
         due_date = None
-
-    new_todo = Todo(reg_id=current_user.idd, title=title, description=description, due_date=due_date, complete=False)
+    new_todo = Todo(reg_id=current_user.idd, title=title,
+                    description=description, due_date=due_date, complete=False)
     db.session.add(new_todo)
     db.session.commit()
-
-    return redirect(url_for('list'))  #,past_due_date=past_due_date))
+    return redirect(url_for('list'))
 
 @app.route('/edit/<int:id>', methods=['PUT', 'POST'])
 @login_required
@@ -213,6 +200,11 @@ def list():
         total_todo = Todo.query.filter_by(reg_id=current_user.idd).count()
         completed_todo = Todo.query.filter_by(reg_id=current_user.idd).filter_by(complete=True).count()
         uncompleted_todo = Todo.query.filter_by(reg_id=current_user.idd).filter_by(complete=False).count()
+
+        # Renumbering the tasks in ascending order
+        for index, todo in enumerate(todo_list):
+            todo.order = index + 1
+        db.session.commit()
 
         page = request.args.get('page', 1, type=int)
         per_page = 5
