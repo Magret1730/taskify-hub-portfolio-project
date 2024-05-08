@@ -126,7 +126,7 @@
         <div class="border-start border-4 shadow mt-3">
             {% for todo in task_on_page %}
             <div class="card-body shadow">
-                <h5 class="mb-0">{{ todo.title }}</h5>
+                <h5 class="mb-0">{{ todo.order }}. {{ todo.title }}</h5>
                 <p class="container-fluid">{{ todo.description }}</p>
                 <p class="container-fluid mb-0"><b>Due Date:</b> {{ todo.due_date.strftime('%Y-%m-%d') if todo.due_date else 'Not specified' }}</p>
                 <div class="container-fluid">

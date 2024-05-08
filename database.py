@@ -45,7 +45,7 @@ class Todo(db.Model):
     complete = db.Column(db.Boolean, default=False)
     due_date = db.Column(db.Date)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
-    # order = db.Column(db.Integer, nullable=False)
+    order = db.Column(db.Integer, nullable=False)
 
     def __init__(self, reg_id, title, description, complete, due_date=None):
         self.reg_id = reg_id
@@ -53,4 +53,4 @@ class Todo(db.Model):
         self.description = description
         self.complete = complete
         self.due_date = due_date
-        # self.order = Todo.query.filter_by(reg_id=reg_id).count() + 1
+        self.order = Todo.query.filter_by(reg_id=reg_id).order_by(Todo.created_at.desc()).count() + 1
