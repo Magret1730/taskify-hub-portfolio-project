@@ -6,8 +6,17 @@
 </head>
 <body>
     <p>To reset your password, please click the button below. The link expires in 5 minutes.</p>
-        <a href="{{ reset_url }}" 
-            style="display: inline-block; background-color: rgb(194, 141, 89); color: rgb(245, 233, 221); padding: 10px 20px; text-decoration: none; border-radius: 10px; justify-content: center;">
+        <a href="{{ reset_url }}"
+            style="display: inline-block;
+                    background-color: rgb(194, 141, 89);
+                    color: rgb(245, 233, 221);
+                    padding: 10px 20px;
+                    text-decoration: none;
+                    border-radius: 10px;
+                    justify-content: center;
+                    transition: background-color 0.3s;"
+            onmouseover="this.style.backgroundColor='white';"
+            onmouseout="this.style.backgroundColor='rgb(140, 110, 74)';">
             RESET PASSWORD
         </a>
     <p>If you did not send a password request, please ignore this message.</p>
