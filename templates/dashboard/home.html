@@ -1,25 +1,26 @@
-{% include 'bootstrap/nav.html' %}
-{% extends 'bootstrap/index.html' %}
-{% block title %} Taskify Hub {% endblock %}
-{% block content %}
+{% include 'bootstrap/nav.html' %} <!-- Include the navigation bar -->
+{% extends 'bootstrap/index.html' %} <!-- Extend the base template -->
+{% block title %} Taskify Hub {% endblock %} <!-- Set the title of this page -->
+{% block content %} <!-- Define the content block -->
 <head>
+    <!-- Link to the custom stylesheet -->
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
 </head>
-<div class="container-fluid bg-light">
+<div class="container-fluid bg-light"> <!-- Container for the main content -->
     <div class="row container-fluid text-light p-0 mt-0 mb-2 border-top border-white">
-        <div class="col-lg-12 text-center custom-textt">
+        <div class="col-lg-12 text-center custom-textt"> <!-- Section for welcome message -->
             <h1 class="display-5 mt-2 mb-0">Welcome to Taskify Hub!</h1>
             <p class="lead mb-1">Stay organized and supercharge your productivity.</p>
-            <a href="/register" class="btn btn-primary btn-lg custom-bg">Get Started</a>
+            <a href="/register" class="btn btn-primary btn-lg custom-bg">Get Started</a> <!-- Button to register -->
         </div>
     </div>
-    <div class="row bg-light">
+    <div class="row bg-light"> <!-- Section for the image -->
         <div class="col">
-            <img class="img-fluid rounded mx-auto d-block" src="/static/images/journal.jpeg" alt="Landing page image">
+            <img class="img-fluid rounded mx-auto d-block" src="/static/images/journal.jpeg" alt="Landing page image"> <!-- Image -->
         </div>
     </div>
 </div>
-<footer class="bg-light text-center py-4">
-    <p class="custom-text">© 2024 Taskify Hub. All rights reserved.</p>
+<footer class="bg-light text-center py-4"> <!-- Footer section -->
+    <p class="custom-text">© 2024 Taskify Hub. All rights reserved.</p> <!-- Copyright notice -->
 </footer>
-{% endblock %}
+{% endblock %} <!-- End of content block -->

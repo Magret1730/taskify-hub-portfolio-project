@@ -1,4 +1,6 @@
 """Database creation"""
+
+# Import necessary modules
 from app_factory import app, db
 from flask_login import UserMixin, login_user, LoginManager, login_required, logout_user, current_user
 from flask_sqlalchemy import SQLAlchemy
@@ -15,17 +17,18 @@ class Reg(db.Model, UserMixin):
     email = db.Column(db.String(50), nullable=False, unique=True)
     password = db.Column(db.String(80), nullable=False)
 
-    # overriding the default implementation provided by UserMixin and ensuring
-    # that Flask-Login can retrieve the user's unique identifier correctly.
+    # Override the default implementation of get_id to return the user's unique identifier
     def get_id(self):
         return self.idd
     
+    # Generate a token for user authentication with an expiration time
     def get_token(self, expires_sec=300):
         serial = TimedSerializer(app.config['SECRET_KEY'])
         expiration_time = datetime.utcnow() + timedelta(seconds=expires_sec)
         return serial.dumps({'user_id': self.idd, 'exp': expiration_time.timestamp()})
         # return serial.dumps({'user_id': self.idd}, expires_in=expires_sec).decode('utf-8')
 
+    # Verify the token to authenticate the user
     @staticmethod
     def verify_token(token):
         serial = TimedSerializer(app.config['SECRET_KEY'])
@@ -47,6 +50,7 @@ class Todo(db.Model):
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     order = db.Column(db.Integer, nullable=False)
 
+    # Initialize List Tasks object with provided parameters
     def __init__(self, reg_id, title, description, complete, due_date=None):
         self.reg_id = reg_id
         self.title = title

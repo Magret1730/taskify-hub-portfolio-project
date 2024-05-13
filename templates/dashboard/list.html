@@ -1,14 +1,15 @@
-{% extends 'bootstrap/index.html' %} <!--this inherits the bootstrap templates-->
-{% block title %} List {% endblock %}
-{% block content %} <!--This allows block content from this page to be rendered-->
+{% extends 'bootstrap/index.html' %} <!-- Include the navigation bar -->
+{% block title %} List {% endblock %} <!-- Set the title of this page -->
+{% block content %} <!-- Define the content block -->
     <head>
+        <!-- Link to the custom stylesheet -->
         <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
     </head>
-    <div class="container">
+    <div class="container"> <!-- Main container -->
         {% if not current_user.is_authenticated and request.endpoint == 'list' %}
         {% with messages = get_flashed_messages() %}
         {% if messages %}
-            <div class="alert alert-danger" role="alert">
+            <div class="alert alert-danger" role="alert"> <!-- Display flashed error messages -->
                 {% for message in messages %}
                     {{ message }}
                 {% endfor %}
@@ -16,18 +17,18 @@
         {% endif %}
         {% endwith %}
         {% endif %}
-        <div class="d-flex">
+        <div class="d-flex"> <!-- Flex container for welcome message and logout button -->
             <div class="flex-fill">
-                <h2 class="mb-3 mt-3 custom-textt">Hello, {{ current_user.first_name }}</h2>
+                <h2 class="mb-3 mt-3 custom-textt">Hello, {{ current_user.first_name }}</h2> <!-- Display user's first name -->
             </div>
             <div class="flex-shrink-1 align-content-end">
                 <div class="mb-3 mt-3">
-                    <a href="{{url_for('logout')}}" class="btn btn-secondary custom-bg">Logout</a>
+                    <a href="{{url_for('logout')}}" class="btn btn-secondary custom-bg">Logout</a> <!-- Logout button -->
                 </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col-md-6">
+        <div class="row"> <!-- Row for adding a new task and displaying statistics -->
+            <div class="col-md-6"> <!-- Column for adding a new task -->
                 <div class="card shadow bg custom-textt">
                     <div class="card-header"><b>NEW TASK</b></div>
                     <div class="card-body">
@@ -52,7 +53,6 @@
                             {% endwith %}
 
                             <label class="mt-2" for="">Description: </label>
-                            <!-- <input class="form-control" type="text" name="title" id="" placeholder="Add Description..."> -->
                             <textarea class="form-control" name="description1" id="description" rows="3"
                                 placeholder="Add Description..."></textarea>
                             <div class="mb-3">
@@ -81,7 +81,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-6"> <!-- Column for displaying statistics -->
                 <div class="card shadow bg custom-textt">
                     <div class="card-header "><b>STATISTICS</b></div>
                     <div class="card-body">
@@ -90,7 +90,7 @@
                                 <div class="card shadow">
                                     <div class="card-body text-center">
                                         <h6>Total task</h6>
-                                        <p class="text-center">{{total_todo}}</p>
+                                        <p class="text-center">{{total_todo}}</p> <!-- Display total number of tasks -->
                                     </div>
                                 </div>
                             </div>
@@ -98,7 +98,7 @@
                                 <div class="card shadow">
                                     <div class="card-body text-center">
                                         <h6>Completed task</h6>
-                                        <p class="text-center">{{completed_todo }}</p>
+                                        <p class="text-center">{{completed_todo }}</p> <!-- Display number of completed tasks -->
                                     </div>
                                 </div>
                             </div>
@@ -106,7 +106,7 @@
                                 <div class="card shadow">
                                     <div class="card-body text-center">
                                         <h6>Uncompleted task</h6>
-                                        <p class="text-center">{{uncompleted_todo}}</p>
+                                        <p class="text-center">{{uncompleted_todo}}</p> <!-- Display number of uncompleted tasks -->
                                     </div>
                                 </div>
                             </div>
@@ -117,25 +117,26 @@
         </div>
 
         {% if total_todo == 0 %}
-        <div class="container-fluid custom-textt text-center mt-3">
+        <div class="container-fluid custom-textt text-center mt-3"> <!-- Message if the task list is empty -->
             <h3>Your task list is currently empty. Why not add a task?</h3>
         </div>
         {% endif %}
 
-        <!-- Lists -->
+        <!-- Task list -->
         <div class="border-start border-4 shadow mt-3">
             {% for todo in task_on_page %}
             <div class="card-body shadow">
-                <h5 class="mb-0">{{ todo.order }}. {{ todo.title }}</h5>
-                <p class="container-fluid">{{ todo.description }}</p>
+                <h5 class="mb-0">{{ todo.order }}. {{ todo.title }}</h5> <!-- Display task title -->
+                <p class="container-fluid">{{ todo.description }}</p> <!-- Display task description -->
+                <!-- Display due date -->
                 <p class="container-fluid mb-0"><b>Due Date:</b> {{ todo.due_date.strftime('%Y-%m-%d') if todo.due_date else 'Not specified' }}</p>
                 <div class="container-fluid">
                     {% if todo.complete %}
-                    <span class="badge bg-success">Completed</span>
+                    <span class="badge bg-success">Completed</span> <!-- Display badge for completed tasks -->
                     {% else %}
-                    <span class="badge bg-secondary">Uncompleted</span>
+                    <span class="badge bg-secondary">Uncompleted</span> <!-- Display badge for uncompleted tasks -->
                     {% endif %}
-                    <a class="btn btn-sm btn-info" href="/update/{{ todo.id }}">Mark Completed</a>
+                    <a class="btn btn-sm btn-info" href="/update/{{ todo.id }}">Mark Completed</a> <!-- Button to mark task as completed -->
 
                     <button type="button" class="btn btn-sm btn-secondary custom-bg" data-bs-toggle="modal" data-bs-target="#editModal{{ todo.id }}">
                         Edit
@@ -226,4 +227,4 @@
             </ul>
         </div>
     </div>
-{% endblock %}
+{% endblock %} <!-- End of content block -->

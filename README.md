@@ -7,7 +7,8 @@ organize their tasks efficiently. With Taskify Hub, users can create, update,
 and delete tasks, set due dates, mark tasks as complete, and more. This
 README provides an overview of the application, its features, installation
 instructions, usage guidelines, and information about hosting it on
-PythonAnywhere.
+**[PythonAnywhere](https://taskifyhub.pythonanywhere.com/)**. You can connect
+with me on [LinkedIn](https://www.linkedin.com/in/oyedele-abiodun/).
 
 ## Features
 - <b>User Authentication:</b> Users can create an account, log in, and log out
@@ -86,7 +87,12 @@ These are found in `requirements.txt`.
 - Log out when you are done using the application.
 
 #### Hosting on PythonAnywhere
- Taskify Hub is also hosted on **[PythonAnywhere](https://taskifyhub.pythonanywhere.com/)**
+ **[Taskify Hub](https://taskifyhub.pythonanywhere.com/)** is also hosted on PythonAnywhere.
+
+#### Overview of Taskify Hub Application
+![Home Page](static/images/home_page.png)
+![Task List](static/images/task_list.png)
+![Edit Task](static/images/edit_task.png)
 
  ## Contributing
 Please read the **[Contribution instructions.](./CONTRIBUTING.md)**

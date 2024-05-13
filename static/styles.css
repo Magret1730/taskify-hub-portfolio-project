@@ -1,7 +1,9 @@
+/* Custom stylesheet */
 body {
     background-color: rgb(245, 233, 221) !important;
 }
 
+/* custom background syle for buttons */
 .custom-bg {
     background-color: rgb(140, 110, 74) !important;
     border: none !important;
@@ -12,6 +14,7 @@ body {
     background-color: rgb(120, 90, 54) !important;
 }
 
+/* custom style for texts*/
 .custom-text {
     color: rgb(140, 110, 74) !important;
 }
@@ -43,17 +46,9 @@ body {
     justify-content: center !important;
 }
 
+/* custom design for email link */
 .custom-alert {
     background-color: rgb(140, 110, 74) !important;
     color: rgb(245, 233, 221) !important;
     border: none !important;
 }
-
-/* .custom-email {
-    display: inline-block !important;
-    background-color: rgb(140, 110, 74) !important;
-    color: rgb(245, 233, 221) !important;
-    padding: 10px 20px !important;
-    text-decoration: none !important;
-    border: 1px;
-} */
