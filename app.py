@@ -1,4 +1,6 @@
 """Taskify Hub application routes"""
+
+# Import necessary modules
 from app_factory import app, db, mail
 from database import Reg, Todo
 from datetime import datetime, date
@@ -10,7 +12,10 @@ from flask_mail import Message
 from model import RegisterForm, LoginForm, ResetRequestForm, ResetPasswordForm
 from urllib.parse import quote
 
+# Initialize Bootstrap
 Bootstrap(app)
+
+# Initialize Bcrypt for password hashing
 bcrypt = Bcrypt(app)
 
 # Create tables within application context
@@ -18,18 +23,22 @@ with app.app_context():
     # db.drop_all()
     db.create_all()
 
+# Initialize Flask-Login for user authentication
 login_manager = LoginManager()
 login_manager.init_app(app)
 login_manager.login_view = "login"
 
+# Function to load a user
 @login_manager.user_loader
 def load_user(reg_idd):
     return Reg.query.get(str(reg_idd))
 
+# Homepage route
 @app.route('/')
 def home():
     return render_template('dashboard/home.html')
 
+# Registration route
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     form = RegisterForm()
@@ -43,6 +52,7 @@ def register():
         return redirect(url_for('login'))
     return render_template('dashboard/reg.html', form=form)
 
+# Login route
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     reset_successful = request.args.get('reset_successful', False)
@@ -63,6 +73,7 @@ def login():
             # form.errors.append('Email or Password not found.')
     return render_template('dashboard/login.html', form=form, reset_successful=reset_successful)
 
+# Function to send reset password email
 def send_mail(user):
     token = user.get_token()
     reset_url = url_for('reset_token', token=quote(token), _external=True)
@@ -82,6 +93,7 @@ def send_mail(user):
     # '''
     mail.send(msg)
 
+# Reset password request route
 @app.route('/reset_request', methods=['GET', 'POST'])
 def reset_password():
     form = ResetRequestForm()
@@ -97,6 +109,7 @@ def reset_password():
     return render_template('dashboard/reset_request.html', title='Reset Password',
                            form=form, reset_successful=reset_successful)
 
+# Reset password route
 @app.route('/reset_password/<token>', methods=['GET', 'POST'])
 def reset_token(token):
     user = Reg.verify_token(token)
@@ -113,12 +126,14 @@ def reset_token(token):
         return redirect(url_for('login'))
     return render_template('dashboard/change_password.html', form=form, token=token)
 
+# Logout route
 @app.route('/logout', methods=['GET', 'POST'])
 @login_required
 def logout():
     logout_user()
     return redirect(url_for('home'))
 
+# Add task route
 @app.route('/add', methods=['POST'])
 @login_required
 def add():
@@ -146,6 +161,7 @@ def add():
     db.session.commit()
     return redirect(url_for('list'))
 
+# Edit task route
 @app.route('/edit/<int:id>', methods=['PUT', 'POST'])
 @login_required
 def edit(id):
@@ -171,6 +187,7 @@ def edit(id):
         db.session.commit()
     return redirect(url_for('list'))
 
+# Delete task route
 @app.route('/delete/<int:id>')
 @login_required
 def delete(id):
@@ -186,6 +203,7 @@ def delete(id):
         # db.session.commit()
     return redirect(url_for('list'))
 
+# Update task route
 @app.route('/update/<int:id>')
 @login_required
 def update(id):
@@ -195,6 +213,7 @@ def update(id):
         db.session.commit()
     return redirect(url_for('list'))
 
+# Task list route
 @app.route('/list', methods=['GET', 'POST'])
 @login_required
 def list():
@@ -223,15 +242,18 @@ def list():
         flash('Please log in to access this page.', 'error')
         return redirect(url_for('login'))
 
+# About route
 @app.route('/about')
 def about():
     return render_template('dashboard/about.html')
 
+# Contact route
 @app.route('/contact')
 def contact():
     return render_template('dashboard/contact.html')
 
 
+# Run the Flask app
 if __name__ == "__main__":
     """ Main Function """
     app.run(host="127.0.0.1", port=5000, debug=True)

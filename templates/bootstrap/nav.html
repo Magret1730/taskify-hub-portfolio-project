@@ -1,4 +1,6 @@
+<!-- Bootstrap Templates for Nav Bar -->
 <head>
+    <!-- Link to custom stylesheet -->
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
 </head>
 <nav class="navbar navbar-expand-lg navbar-dark custom-bg">
@@ -8,17 +10,22 @@
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
+        <!-- Navbar links -->
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <!-- About page link -->
                 <li class="nav-item">
                     <a class="nav-link" href="{{url_for('about')}}">About</a>
                 </li>
+                <!-- Contact page link -->
                 <li class="nav-item">
                     <a class="nav-link" href="{{url_for('contact')}}">Contact</a>
                 </li>
+                <!-- Register page link -->
                 <li class="nav-item">
                     <a class="nav-link" href="{{url_for('register')}}">Register</a>
                 </li>
+                <!-- Login page link -->
                 <li class="nav-item">
                     <a class="nav-link" href="{{url_for('login')}}">Login</a>
                 </li>

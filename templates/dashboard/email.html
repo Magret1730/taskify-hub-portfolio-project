@@ -1,7 +1,8 @@
-{% extends 'bootstrap/index.html' %} <!--this imports the bootstrap templates-->
-{% block title %} Password Reset Email {% endblock %}
-{% block content %} <!--This allows block content from this page to be rendered-->
+{% extends 'bootstrap/index.html' %} <!-- Extending the base template -->
+{% block title %} Password Reset Email {% endblock %} <!-- Setting the title of this page -->
+{% block content %} <!-- Defining the content block -->
 <head>
+    <!-- Link to the custom stylesheet -->
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
 </head>
 <body>
@@ -17,8 +18,8 @@
                     transition: background-color 0.3s;"
             onmouseover="this.style.backgroundColor='white';"
             onmouseout="this.style.backgroundColor='rgb(140, 110, 74)';">
-            RESET PASSWORD
+            RESET PASSWORD <!-- Button to reset password -->
         </a>
-    <p>If you did not send a password request, please ignore this message.</p>
+    <p>If you did not send a password request, please ignore this message.</p> <!-- Additional message for users -->
 </body>
-{% endblock %}
+{% endblock %} <!-- End of content block -->

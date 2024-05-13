@@ -1,9 +1,11 @@
-{% extends 'bootstrap/index.html' %} <!--this imports the bootstrap templates-->
-{% block title %} Registration {% endblock %}
-{% block content %} <!--This allows block content from this page to be rendered-->
+{% extends 'bootstrap/index.html' %} <!-- Extends the base template to inherit its structure and styling -->
+{% block title %} Registration {% endblock %} <!-- Sets the title of this page -->
+{% block content %} <!-- Begins the content block -->
 <head>
+    <!-- Link to the custom stylesheet -->
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
 </head>
+<!-- Navigation Bar -->
 <nav class="navbar navbar-expand-lg navbar-dark custom-bg">
     <div class="container">
         <a class="navbar-brand" href="{{url_for('home')}}">Taskify Hub</a>
@@ -14,60 +16,61 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link" href="{{url_for('about')}}">About</a>
+                    <a class="nav-link" href="{{url_for('about')}}">About</a> <!-- About page link -->
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{url_for('contact')}}">Contact</a>
+                    <a class="nav-link" href="{{url_for('contact')}}">Contact</a> <!-- Contact page link -->
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{url_for('login')}}">Login</a>
+                    <a class="nav-link" href="{{url_for('login')}}">Login</a> <!-- Login page link -->
                 </li>
             </ul>
         </div>
     </div>
 </nav>
+<!-- Registration Form -->
 <div class="container mt-5">
     <div class="row justify-content-center">
         <div class="col-md-6">
             <form method="POST">
-                {{ form.hidden_tag() }}
+                {{ form.hidden_tag() }} <!-- Hidden CSRF(Cross-Site Request Forgery) token field -->
                 <div class="mb-3">
-                    {{ form.first_name.label(class="form-label") }}
-                    {{ form.first_name(class="form-control", autocomplete="given-name") }}
+                    {{ form.first_name.label(class="form-label") }} <!-- First name input label -->
+                    {{ form.first_name(class="form-control", autocomplete="given-name") }} <!-- First name input field -->
                     {% for error in form.first_name.errors %}
-                        <div class="alert alert-danger">{{ error }}</div>
+                        <div class="alert alert-danger">{{ error }}</div> <!-- Displays first name validation errors -->
                     {% endfor %}
                 </div>
                 <div class="mb-3">
-                    {{ form.last_name.label(class="form-label") }}
-                    {{ form.last_name(class="form-control", autocomplete="family-name") }}
+                    {{ form.last_name.label(class="form-label") }} <!-- Last name input label -->
+                    {{ form.last_name(class="form-control", autocomplete="family-name") }} <!-- Last name input field -->
                     {% for error in form.last_name.errors %}
-                        <div class="alert alert-danger">{{ error }}</div>
+                        <div class="alert alert-danger">{{ error }}</div> <!-- Displays last name validation errors -->
                     {% endfor %}
                 </div>
                 <div class="mb-3">
-                    {{ form.email.label(class="form-label") }}
-                    {{ form.email(class="form-control", autocomplete="email") }}
+                    {{ form.email.label(class="form-label") }} <!-- Email input label -->
+                    {{ form.email(class="form-control", autocomplete="email") }} <!-- Email input field -->
                     {% for error in form.email.errors %}
-                        <div class="alert alert-danger">{{ error }}</div>
+                        <div class="alert alert-danger">{{ error }}</div> <!-- Displays email validation errors -->
                     {% endfor %}
                 </div>
                 <div class="mb-3">
-                    {{ form.password.label(class="form-label") }}
-                    {{ form.password(class="form-control", autocomplete="new-password") }}
+                    {{ form.password.label(class="form-label") }} <!-- Password input label -->
+                    {{ form.password(class="form-control", autocomplete="new-password") }} <!-- Password input field -->
                     {% for error in form.password.errors %}
-                        <div class="alert alert-danger">{{ error }}</div>
+                        <div class="alert alert-danger">{{ error }}</div> <!-- Displays password validation errors -->
                     {% endfor %}
                 </div>
                 <div class="mt-3 text-center">
-                    <button type="submit" class="btn btn-secondary custom-bg">Register</button>
+                    <button type="submit" class="btn btn-secondary custom-bg">Register</button> <!-- Submit button -->
                 </div>
             </form>
         </div>
     </div>
-
+    <!-- Login Link -->
     <div class="nav-item text-center">
-        <p class="nav-link custom-text">Already have an account? <a class="custom-text" href="{{url_for('login')}}">Login.</a></p>
+        <p class="nav-link custom-text">Already have an account? <a class="custom-text" href="{{url_for('login')}}">Login.</a></p> <!-- Login page link -->
     </div>
 </div>
-{% endblock %}
+{% endblock %} <!-- End of content block -->

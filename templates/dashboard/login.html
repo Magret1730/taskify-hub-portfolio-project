@@ -1,32 +1,35 @@
-{% extends 'bootstrap/index.html' %} <!--this imports the bootstrap templates-->
-{% block title %} Login {% endblock %}
-{% block content %} <!--This allows block content from this page to be rendered-->
+{% extends 'bootstrap/index.html' %} <!-- Extends the base template to inherit its structure and styling -->
+{% block title %} Login {% endblock %} <!-- Sets the title of this page -->
+{% block content %} <!-- Begins the content block -->
 <head>
+    <!-- Link to the custom stylesheet -->
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
 </head>
+<!-- Navigation Bar -->
 <nav class="navbar navbar-expand-lg navbar-dark custom-bg">
     <div class="container">
-        <a class="navbar-brand" href="{{url_for('home')}}">Taskify Hub</a>
+        <a class="navbar-brand" href="{{url_for('home')}}">Taskify Hub</a> <!-- Taskify Hub logo and home link -->
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
+            <span class="navbar-toggler-icon"></span> 
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link" href="{{url_for('about')}}">About</a>
+                    <a class="nav-link" href="{{url_for('about')}}">About</a> <!-- About page link -->
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{url_for('contact')}}">Contact</a>
+                    <a class="nav-link" href="{{url_for('contact')}}">Contact</a> <!-- Contact page link -->
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{url_for('register')}}">Register</a>
+                    <a class="nav-link" href="{{url_for('register')}}">Register</a> <!-- Register page link -->
                 </li>
             </ul>
         </div>
     </div>
 </nav>
 
+<!-- Login Form -->
 <div class="container mt-5">
     <div class="row justify-content-center">
         <div class="col-md-6">
@@ -37,7 +40,7 @@
             <div class="container-fluid mt-0">
                 <div class="row justify-content-start">
                     <div class="col-sm-12">
-                        <p class="alert alert-success" role="alert">{{ category }}</p>
+                        <p class="alert alert-success" role="alert">{{ category }}</p> <!-- Success message -->
                     </div>
                 </div>
             </div>
@@ -45,7 +48,8 @@
             {% endfor %}
             {% endif %}
             {% endwith %}
-                
+            
+            <!-- Form Validation Errors -->
             {% for error in form.email.errors %}
                 <div class="alert alert-danger">{{ error }}</div>
             {% endfor %}
@@ -53,35 +57,29 @@
                 <div class="alert alert-danger">{{ error }}</div>
             {% endfor %}
 
+            <!-- Login Form -->
             <form action="/login" method="post">
-                {{ form.hidden_tag() }}
+                {{ form.hidden_tag() }} <!-- Hidden CSRF(Cross-Site Request Forgery) token field -->
                 <div class="mb-3">
-                    {{ form.email.label(class="form-label") }}
-                    {{ form.email(class="form-control", placeholder="Email", autocomplete="email") }}
-                    <!-- {% for error in form.email.errors %}
-                        <div class="alert alert-danger">{{ error }}</div>
-                    {% endfor %} -->
+                    {{ form.email.label(class="form-label") }} <!-- Email input label -->
+                    {{ form.email(class="form-control", placeholder="Email", autocomplete="email") }} <!-- Email input field -->
                 </div>
                 <div class="mb-3">
-                    {{ form.password.label(class="form-label") }}
-                    {{ form.password(class="form-control", placeholder="Password", autocomplete="current-password") }}
-                    <!-- {% for error in form.password.errors %}
-                        <div class="alert alert-danger">{{ error }}</div>
-                    {% endfor %} -->
+                    {{ form.password.label(class="form-label") }} <!-- Password input label -->
+                    {{ form.password(class="form-control", placeholder="Password", autocomplete="current-password") }} <!-- Password input field -->
                 </div>
                 <div class="text-center">
-                    <button type="submit" class="btn btn-secondary custom-bg">Login</button>
+                    <button type="submit" class="btn btn-secondary custom-bg">Login</button> <!-- Submit button -->
                 </div>
             </form>
         </div>
     </div>
-
+    <!-- Registration and Password Reset Links -->
     <div class="nav-item text-center mb-0">
-        <p class="nav-link mb-0 custom-text">Don't have an account? <a class="custom-text" href="{{url_for('register')}}">Register.</a></p>
-        <!-- <a class="nav-link" href="{{url_for('register')}}">Don't have an account? Register.</a> -->
+        <p class="nav-link mb-0 custom-text">Don't have an account? <a class="custom-text" href="{{url_for('register')}}">Register.</a></p> <!-- Registration link -->
     </div>
     <div class="nav-item text-center mb-0">
-        <p class="nav-link mb-0 custom-text">Forgot <a class="custom-text" href="{{url_for('reset_password')}}">password</a>?</p>
+        <p class="nav-link mb-0 custom-text">Forgot <a class="custom-text" href="{{url_for('reset_password')}}">password</a>?</p> <!-- Password reset link -->
     </div>
 </div>
-{% endblock %}
+{% endblock %} <!-- End of content block -->
