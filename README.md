@@ -89,6 +89,9 @@ These are found in `requirements.txt`.
 #### Hosting on PythonAnywhere
  **[Taskify Hub](https://taskifyhub.pythonanywhere.com/)** is also hosted on PythonAnywhere.
 
+#### Quick Walkthrough
+ **[Taskify Hub Walkthrough](https://www.youtube.com/watch?v=t9stoIs7zno&authuser=3)**
+
 #### Overview of Taskify Hub Application
 ![Home Page](static/images/home_page.png)
 ![Task List](static/images/task_list.png)
