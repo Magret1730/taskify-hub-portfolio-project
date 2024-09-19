@@ -176,7 +176,20 @@ def edit(id):
         description = request.form.get('description')
         due_date_string = request.form.get('due_date')
         
-        due_date = datetime.strptime(due_date_string, '%Y-%m-%d').date()
+        # due_date = datetime.strptime(due_date_string, '%Y-%m-%d').date()
+
+        # Debugging output
+        # print(f"Received due_date_string: {due_date_string}")
+        
+        if due_date_string:
+            try:
+                due_date = datetime.strptime(due_date_string, '%Y-%m-%d').date()
+            except ValueError as e:
+                print(f"Error parsing due_date_string: {e}")
+                # Handling the error, e.g., by returning an error message or default value
+                due_date = None
+        else:
+            due_date = None
 
         # Update the todo item
         edit_todo.title = title
