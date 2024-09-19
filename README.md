@@ -66,6 +66,10 @@ These are found in `requirements.txt`.
 - Navigate to the project directory:
   `cd taskify-hub-portfolio-project`
 
+- Optional: create a virtual env
+  `python3 -m venv venv`
+  activate it - `source venv/bin/activate`
+
 - Install dependencies:
   `pip install -r requirements.txt`
 
